@@ -1,0 +1,133 @@
+.label-float {
+  position: relative;
+  padding-top: 13px;
+}
+
+.label-password {
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  outline: none;
+  min-width: 26rem;
+  padding: 1rem;
+  font-size: 1.2rem;
+
+}
+
+.label-float input {
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  outline: none;
+  min-width: 26rem;
+  padding: 1rem;
+  font-size: 1.2rem;
+  transition: all .1s linear;
+  -webkit-transition: all .1s linear;
+  -moz-transition: all .1s linear;
+  -webkit-appearance: none;
+}
+
+.label-float input:focus {
+  border: 2px solid #F48534;
+}
+
+.label-float input::placeholder {
+  color: transparent;
+}
+
+.label-float label {
+  pointer-events: none;
+  position: absolute;
+  top: calc(50% - 8px);
+  left: 15px;
+  transition: all .1s linear;
+  -webkit-transition: all .1s linear;
+  -moz-transition: all .1s linear;
+  background-color: white;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.label-float input:required:invalid+label {
+  color: #3951b2;
+}
+
+.label-float input:focus:required:invalid {
+  border: 2px solid #F48534;
+}
+
+.label-float input:required:invalid+label:before {
+  content: '';
+}
+
+.label-float input:focus+label,
+.label-float input:not(:placeholder-shown)+label {
+  font-size: 13px;
+  top: 0;
+  color: #3951b2;
+}
+
+.loginButton {
+  background: linear-gradient(to right, #3D70C6, #373598);
+  width: 100%;
+  padding: 0.7rem;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 10;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border-radius: 5px
+}
+
+
+.logoZoomIn {
+  animation: zoomIn 0.5s forwards;
+}
+
+@keyframes zoomIn {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.loginSlideIn {
+  animation: slideIn 0.5s forwards;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+.zoomInAnimation {
+  animation: zoomIn 1s;
+  /* Increased duration to slow down */
+}
+
+
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slideInFromBottomAnimation {
+  animation: slideInFromBottom 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  /* Increased duration to slow down */
+}
