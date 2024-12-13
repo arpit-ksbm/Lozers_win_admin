@@ -7,34 +7,54 @@ import axios from 'axios';
 const AddContestModal = ({ open, onClose, contestToEdit }) => {
     const dispatch = useDispatch();
 
-    const initialData = {
+    const [contestData, setContestData] = useState({
+        // matchId: '',
         contestName: '',
         prizePool: '',
         entryFee: '',
         maxParticipants: '',
-    };
+    });
 
-    const [contestData, setContestData] = useState(initialData);
+    const [matchList, setMatchList] = useState([]);
 
+    // Fetch match data on component mount
+    useEffect(() => {
+        const fetchMatches = async () => {
+            try {
+                const response = await axios.get(
+                    'https://rest.entitysport.com/v2/matches/?status=2&token=ec471071441bb2ac538a0ff901abd249'
+                );
+                if (response.data && response.data.response && response.data.response.items) {
+                    setMatchList(response.data.response.items);
+                }
+            } catch (error) {
+                console.error('Failed to fetch matches:', error);
+            }
+        };
+
+        fetchMatches();
+    }, []);
+
+    // Update contest data when editing
     useEffect(() => {
         if (contestToEdit) {
             setContestData({
+                matchId: contestToEdit.matchId || '',
                 contestName: contestToEdit.contestName || '',
                 prizePool: contestToEdit.prizePool || '',
                 entryFee: contestToEdit.entryFee || '',
                 maxParticipants: contestToEdit.maxParticipants || '',
             });
         } else {
-            setContestData(initialData);
+            setContestData({
+                matchId: '',
+                contestName: '',
+                prizePool: '',
+                entryFee: '',
+                maxParticipants: '',
+            });
         }
     }, [contestToEdit]);
-
-    // Reset fields when the modal is closed
-    useEffect(() => {
-        if (!open) {
-            setContestData(initialData);
-        }
-    }, [open]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -81,6 +101,21 @@ const AddContestModal = ({ open, onClose, contestToEdit }) => {
                 }}
             >
                 <h2>{contestToEdit ? 'Edit Contest' : 'Add Contest'}</h2>
+                
+                <FormControl fullWidth style={{ marginBottom: '10px' }}>
+                    <InputLabel id="match-title-label">Match Title</InputLabel>
+                    <Select
+                        labelId="match-title-label"
+                        value={contestData.matchId}
+                        onChange={(e) => setContestData({ ...contestData, matchId: e.target.value })}
+                    >
+                        {matchList.map((match) => (
+                            <MenuItem key={match.match_id} value={match.match_id}>
+                                {match.title}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
 
                 <TextField
                     label="Contest Name"
