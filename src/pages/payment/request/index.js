@@ -21,19 +21,20 @@ const Request = () => {
     //* Datatable Columns 
     const columns = [
         { name: 'S.No.', selector: row => filteredData?.indexOf(row) + 1, width: '80px' },
-        { name: 'User ID', selector: row => row?.player_id?.userId || 'N/A' },
-        { name: 'Mobile', selector: row => row?.player_id?.phoneNumber || 'N/A' },
-        { name: 'Balance', selector: row => IndianRupee(row?.player_id?.amount), width: '150px' },
+        { name: 'User ID', selector: row => row?.user_id?._id || 'N/A' },
+        { name: 'Mobile', selector: row => row?.user_id?.phoneNumber || 'N/A' },
+        { name: 'Balance', selector: row => IndianRupee(row?.user_id?.walletBalance), width: '150px' },
         { name: 'Req.Amt', selector: row => IndianRupee(row?.amount), width: '150px' },
         { name: 'Req.Date', selector: row => moment(row?.createdAt).format('DD MMM YYYY') },
         { name: 'Req.Time', selector: row => moment(row?.createdAt).format('hh:mm A') },
         {
             name: "Change Status",
             cell: (row) => (
-                <select value={row?.status} onChange={(e) => dispatch(PaymentActions.approveRejectPaymentRequest({ requestId: row?._id, playerId: row?.player_id?._id, status: e.target.value }))} style={{ outline: "none", padding: "5px 8px", border: "1px solid #666666", color: "#666666", borderRadius: "5px", fontFamily: "Philosopher" }}>
+                <select value={row?.status} onChange={(e) => dispatch(PaymentActions.approveRejectPaymentRequest({ request_id: row?._id, userid: row?.user_id?._id, status: e.target.value }))} style={{ outline: "none", padding: "5px 8px", border: "1px solid #666666", color: "#666666", borderRadius: "5px", fontFamily: "Philosopher" }}>
                     <option value={''}>---Select---</option>
-                    <option value={'accepted'}>Accept</option>
-                    <option value={'rejected'}>Reject</option>
+                    <option value={'Pending'}>Pending</option>
+                    <option value={'Approved'}>Approve</option>
+                    <option value={'Rejected'}>Reject</option>
                 </select>
             ),
         },

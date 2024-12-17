@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Button } from '@mui/material';
+import { Box, Button, IconButton } from '@mui/material';
 import RouteHeader from '../../components/common/RouteHeader';
 import MainDatatable from '../../components/datatable/MainDatatable';
 import AddContestModal from './AddContestModal'; // Import the modal component
 import * as ContestAction from '../../redux/actions/contestAction';
+import Header from '../../layouts/header';
+import { RiEdit2Line } from "react-icons/ri";
+import { MdDeleteForever } from "react-icons/md";
 
 const Contest = () => {
     const dispatch = useDispatch();
@@ -25,15 +28,10 @@ const Contest = () => {
         setContestToEdit(contest); // Set the contest to edit
         setOpenModal(true); // Open the modal
     };
-    
+
     const handleDeleteContest = (contestId) => {
         console.log(contestId, '09099');
-        
-        dispatch(
-            ContestAction.deleteContest(contestId) // Pass only the ID
-        );
-        
-        
+        dispatch(ContestAction.deleteContest(contestId)); // Pass only the ID
     };
 
     const columns = [
@@ -45,18 +43,21 @@ const Contest = () => {
         {
             name: 'Actions',
             cell: (row) => (
-                <div>
-                    <Button variant="outlined" onClick={() => handleEditContest(row)}>
-                        Edit
-                    </Button>
-                    <Button
-                        variant="outlined"
-                        color="secondary"
-                        onClick={() => handleDeleteContest(row._id)}
-                        style={{ marginLeft: '10px' }}
+                <div style={{ display: 'flex', gap: '1px' }}>
+                    <IconButton 
+                        onClick={() => handleEditContest(row)} 
+                        title="Edit Contest"
+                        style={{ color: '#1976d2' }} // Blue color for edit button
                     >
-                        Delete
-                    </Button>
+                        <RiEdit2Line size={20} /> {/* Increased icon size */}
+                    </IconButton>
+                    <IconButton 
+                        onClick={() => handleDeleteContest(row._id)} 
+                        title="Delete Contest"
+                        style={{ color: '#d32f2f' }} // Red color for delete button
+                    >
+                        <MdDeleteForever size={22} /> {/* Increased icon size */}
+                    </IconButton>
                 </div>
             ),
         },
@@ -64,14 +65,26 @@ const Contest = () => {
 
     return (
         <>
-            <RouteHeader title={`Contest`} />
+            <Header />
             <Box sx={{ p: 3 }}>
                 <div style={{
-                    background: "#ffffff", padding: "25px", borderRadius: "10px", boxShadow: "0 3px 6px rgba(0, 0, 0, 0.16)"
+                    background: "#ffffff", 
+                    padding: "25px", 
+                    borderRadius: "10px", 
+                    boxShadow: "0 3px 6px rgba(0, 0, 0, 0.16)"
                 }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px", backgroundColor: "#fff" }}>
+                    <div style={{ 
+                        display: "flex", 
+                        justifyContent: "space-between", 
+                        marginBottom: "20px", 
+                        backgroundColor: "#fff" 
+                    }}>
                         <div style={{ fontSize: "20px", fontWeight: "600", color: "black" }}>Contest</div>
-                        <Button variant="contained" style={{backgroundColor:'black'}} onClick={handleOpenModal}>
+                        <Button 
+                            variant="contained" 
+                            style={{ backgroundColor: 'black' }} 
+                            onClick={handleOpenModal}
+                        >
                             Add Contest
                         </Button>
                     </div>
@@ -80,7 +93,11 @@ const Contest = () => {
                 </div>
             </Box>
 
-            <AddContestModal open={openModal} onClose={() => setOpenModal(false)} contestToEdit={contestToEdit} />
+            <AddContestModal 
+                open={openModal} 
+                onClose={() => setOpenModal(false)} 
+                contestToEdit={contestToEdit} 
+            />
         </>
     );
 };

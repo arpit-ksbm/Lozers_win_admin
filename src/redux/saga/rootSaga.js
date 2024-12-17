@@ -7,6 +7,7 @@ import paymentSaga from './paymentSaga';
 import settingSaga from './settingSaga';
 import contestSaga from "./contestSaga";
 import usersSaga from "./userSaga";
+import dashboardSaga from "./dashboardSaga";
 
 export default function* rootSaga() {
     yield all([
@@ -17,6 +18,7 @@ export default function* rootSaga() {
         gameHistorySaga(),
         currentGameSaga(),
         paymentSaga(),
+        dashboardSaga(),
         settingSaga()
     ])
 };

@@ -12,19 +12,22 @@ const History = () => {
     const dispatch = useDispatch();
     const { paymentHistoryData } = useSelector(state => state?.paymentReducer);
 
+    console.log(paymentHistoryData, "paumrnthistroydasyat");
+    
+
     const [searchText, setSearchText] = useState('');
     const filteredData = DeepSearchSpace(paymentHistoryData, searchText);
 
     //* Datatable Columns 
     const columns = [
         { name: 'S.No.', selector: row => filteredData?.indexOf(row) + 1, width: '80px' },
-        { name: 'User ID', selector: row => row?.player_id?.userId || 'N/A' },
-        { name: 'Mobile', selector: row => row?.player_id?.phoneNumber || 'N/A' },
-        { name: 'Closing Balance', selector: row => IndianRupee(row?.player_id?.amount), width: '180px' },
+        { name: 'User ID', selector: row => row?.user_id?._id || 'N/A' },
+        { name: 'Mobile', selector: row => row?.user_id?.phoneNumber || 'N/A' },
+        { name: 'Closing Balance', selector: row => IndianRupee(row?.user_id?.walletBalance), width: '180px' },
         { name: 'Req.Amt', selector: row => IndianRupee(row?.amount), width: '150px' },
         { name: 'Req.Date', selector: row => moment(row?.createdAt).format('DD MMM YYYY') },
         { name: 'Req.Time', selector: row => moment(row?.createdAt).format('hh:mm A') },
-        { name: 'Status', selector: row => <div style={{ cursor: 'pointer', textTransform: 'capitalize', color: row?.status == 'accepted' ? 'green' : 'red' }}>{row?.status}</div> },
+        { name: 'Status', selector: row => <div style={{ cursor: 'pointer', textTransform: 'capitalize', color: row?.status == 'Approved' ? 'green' : 'red' }}>{row?.status}</div> },
     ];
 
     useEffect(() => {

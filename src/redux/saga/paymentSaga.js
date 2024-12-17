@@ -13,7 +13,7 @@ function* getPaymentRequest() {
         console.log('getPaymentRequest Saga Response ::: ', data);
 
         if (data) {
-            yield put({ type: actionTypes?.SET_PAYMENT_REQUEST, payload: data?.results?.reverse() })
+            yield put({ type: actionTypes?.SET_PAYMENT_REQUEST, payload: data?.data })
         }
         yield put({ type: actionTypes?.SET_IS_LOADING, payload: false });
 
@@ -30,8 +30,8 @@ function* getPaymentHistory() {
         const { data } = yield getAPI(get_payment_history);
         console.log('getPaymentHistory Saga Response ::: ', data);
 
-        if (data?.success) {
-            yield put({ type: actionTypes?.SET_PAYMENT_HISTORY, payload: data?.results?.reverse() })
+        if (data) {
+            yield put({ type: actionTypes?.SET_PAYMENT_HISTORY, payload: data?.data })
         }
         yield put({ type: actionTypes?.SET_IS_LOADING, payload: false });
 

@@ -153,14 +153,22 @@ const AddContestModal = ({ open, onClose, contestToEdit }) => {
                     onChange={handleInputChange}
                     style={{ marginBottom: '10px' }}
                 />
+
+                <div style={{
+    display: "flex",
+    justifyContent: "flex-end", // Aligns button to the right
+    marginBottom: "20px",
+    backgroundColor: "#fff"
+}}>
                 <Button
                     variant="contained"
                     color="primary"
                     onClick={handleSubmit}
-                    style={{ marginTop: '20px' }}
+                    style={{ marginTop: '20px', backgroundColor:"black" }}
                 >
                     {contestToEdit ? 'Update Contest' : 'Add Contest'}
                 </Button>
+                </div>
             </div>
         </Modal>
     );

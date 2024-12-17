@@ -2,7 +2,9 @@ import * as actionTypes from '../action-types';
 
 const initialState = {
     adminDetailData: {},
-    adminPermissionData: ['Dashboard', 'Player', 'Contest', 'Users', 'Game History', 'Current Game', 'Payment', 'Setting'],
+    // adminPermissionData: ['Dashboard', 'Player', 'Contest', 'Users', 'Game History', 'Current Game', 'Payment', 'Setting'],
+    adminPermissionData: ['Dashboard', 'Contest', 'Users', 'Payment', 'Setting'],
+
 };
 
 const authReducer = (state = initialState, action) => {

@@ -8,6 +8,7 @@ import currentGameReducer from "./currentGameReducer";
 import paymentReducer from "./paymentReducer";
 import settingReducer from "./settingReducer";
 import usersReducer from "./usersReducer";
+import dashboardReducer from "./dashboardReducer";
 
 const rootReducer = combineReducers({
     commonReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     gameHistoryReducer,
     currentGameReducer,
     paymentReducer,
+    dashboardReducer,
     settingReducer
 });
 

@@ -6,6 +6,7 @@ import { styled } from '@mui/system';
 import logo from '../../assets/images/logo.png';
 import login_background from '../../assets/images/login_background.png';
 import * as AuthActions from '../../redux/actions/authAction';
+import { toast } from 'react-toastify';
 
 // Styled component for the background
 const BackgroundBox = styled(Box)({
@@ -73,12 +74,20 @@ const Login = () => {
 
             const payload = {
                 data: { email, password },
-                onComplete: () => navigate('/')
+                onComplete: () => navigate('/'),
+                onError: () => toast.error('Invalid email or password'),
             }
             //! Dispatching API For Login
             dispatch(AuthActions.adminLogin(payload))
         } else {
             console.log({ message: 'Validation Error' })
+        }
+    };
+
+     //! Handle Key Press
+     const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            handleSubmit();
         }
     };
 
@@ -88,7 +97,7 @@ const Login = () => {
                 <Box mb={4}>
                     <img src={logo} alt="Logo" style={{ width: '250px' }} />
                 </Box>
-                <Box style={{ width: '100%' }}>
+                <Box style={{ width: '100%' }} onKeyDown={handleKeyPress}>
                     <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                         <input
                             name="email"

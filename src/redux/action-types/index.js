@@ -9,6 +9,8 @@ export const SET_ADMIN_DETAIL = 'SET_ADMIN_DETAIL';
 export const SET_ADMIN_PERMISSION = 'SET_ADMIN_PERMISSION';
 
 //! Dashboard
+export const GET_DASHBOARD = 'GET_DASHBOARD'
+export const SET_DASHBOARD = 'SET_DASHBOARD';
 
 //! Users
 export const GET_USERS = 'GET_USERS';

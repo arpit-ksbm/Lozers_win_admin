@@ -5,6 +5,7 @@ import RouteHeader from '../../components/common/RouteHeader';
 import MainDatatable from '../../components/datatable/MainDatatable';
 import * as UsersAction from '../../redux/actions/usersAction';
 import { toast, ToastContainer } from 'react-toastify';
+import Header from '../../layouts/header';
 
 const Users = () => {
     const dispatch = useDispatch();
@@ -75,7 +76,8 @@ const Users = () => {
 
     return (
         <>
-            <RouteHeader title={`Users`} />
+        <Header />
+            {/* <RouteHeader title={`Users`} /> */}
             <Box sx={{ p: 3 }}>
                 <div
                     style={{

@@ -1,6 +1,8 @@
 import HomeIcon from '@mui/icons-material/Home';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import { Gamepad, PaymentOutlined, Person, Settings } from "@mui/icons-material";
+import GamepadIcon from '@mui/icons-material/Gamepad';
+
 
 export const RouteName = [
     {
@@ -21,7 +23,7 @@ export const RouteName = [
     {
         path: "/admin/contest",
         name: "Contest",
-        icon: <Person />,
+        icon: <GamepadIcon />,
     },
     {
         name: "Game History",

@@ -11,24 +11,24 @@ import { postAPI } from '../../utils/api-function';
 
 function* adminLogin(action) {
     try {
-        const { payload } = action;
-        console.log("Admin Login Saga Payload ::: ", payload);
+        var { payload } = action;
 
-        // Include the protocol in the URL
         const { data } = yield axios.post(`http://localhost:4012/api/admin/admin_login`, payload?.data);
-        console.log("Admin Login Saga Response ::: ", data);
 
         if (data) {
-            // Store the token in localStorage
-            localStorage.setItem(access_token, data?.token);
+            localStorage.setItem('access_token', data?.token);
 
-            Swal.fire({ icon: "success", text: "Login Successfully", showConfirmButton: false, timer: 2000 });
+            Swal.fire({ icon: 'success', text: 'Login Successfully', showConfirmButton: false, timer: 2000 });
             yield call(payload?.onComplete);
             yield put({ type: actionTypes.GET_ADMIN_DETAIL, payload: { data: { id: data?.results?._id } } });
         }
-
     } catch (error) {
-        console.log("Admin Login Saga Error ::: ", error);
+        console.log('Admin Login Saga Error ::: ', error.response);
+
+        // Call the onError callback
+        if (payload?.onError) {
+            payload.onError();
+        }
     }
 }
 

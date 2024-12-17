@@ -3,6 +3,7 @@ export const admin_login = 'api/admin/admin_login';
 export const get_admin_detail = 'api/admin/getAdmin';
 
 //! Dashboard
+export const get_dashboard = 'api/admin/get_dashboard';
 
 //! Contest
 export const get_contest = 'api/admin/get_all_contest';
@@ -46,9 +47,9 @@ export const get_current_pt_game_timer = 'api/prologic/new/game';
 export const current_pt_game_winner_by_admin = 'api/prologic/winnerByAdmin';
 
 //* Payment
-export const get_payment_request = 'api/getAllWithdrawRequest';
-export const get_payment_history = 'api/admin/allWithdrawHistory';
-export const approve_reject_payment_request = 'api/admin/updateWithdrawRequestStatus';
+export const get_payment_request = 'api/admin/get_withdrawl_request';
+export const get_payment_history = 'api/admin/get_withdrawl_history';
+export const approve_reject_payment_request = 'api/admin/handle_withdrawl_request';
 
 //! Setting
 //* Sub admin 
