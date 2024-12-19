@@ -98,6 +98,7 @@ const AddSubadmin = ({ mode }) => {
         { name: "Player" },
         { name: "Users" },
         { name: "Contest" },
+        { name: "Point Distribution" },
         // { name: "Game History" },
         { name: "Current Game" },
         { name: "Payment" },

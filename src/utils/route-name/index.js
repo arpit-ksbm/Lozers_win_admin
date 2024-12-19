@@ -26,6 +26,11 @@ export const RouteName = [
         icon: <GamepadIcon />,
     },
     {
+        path: "/admin/points-distribution",
+        name: "Point Distribution",
+        icon: <GamepadIcon />,
+    },
+    {
         name: "Game History",
         icon: <SportsEsportsIcon />,
         subRoutes: [

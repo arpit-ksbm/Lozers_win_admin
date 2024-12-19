@@ -36,6 +36,7 @@ import Contest from "./pages/contest";
 import Users from "./pages/user";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
+import PointsDistribution from "./pages/points-distribution";
 
 
 const routes = [
@@ -52,6 +53,8 @@ const routes = [
       
       { path: "/admin/contest", element: <Contest />, name: "Contest" },
       { path: "/admin/users", element: <Users />, name: "Users" },
+      { path: "/admin/points-distribution", element: <PointsDistribution />, name: "Points-Distribution" },
+
       // Game History
       { path: "/admin/game-history/fun-target-timer", element: <GameHistoryFunTargetTimer />, name: "Game History" },
       { path: "/admin/game-history/fun-sorat-timer", element: <GameHistoryFunSoratTimer />, name: "Game History" },
@@ -102,6 +105,7 @@ const App = () => {
           <Route path="/admin/player" element={<Player />} />
           <Route path="/admin/users" element={<Users />} />
           <Route path="/admin/contest" element={<Contest />} />
+          <Route path="/admin/points-distribution" element={<PointsDistribution />} />
           <Route path="/admin/player/add-player" element={<AddPlayer mode={'Add'} />} />
           <Route path="/admin/player/Edit-player" element={<AddPlayer mode={'Edit'} />} />
 

@@ -11,6 +11,9 @@ export const create_contest = 'api/admin/create_contest';
 export const update_contest = 'api/admin/edit_contest';
 export const delete_contest = 'api/admin/delete_contest';
 
+//! Points
+export const get_points = 'api/admin/get_points';
+
 //! Users
 export const get_users = 'api/admin/get_all_users';
 
