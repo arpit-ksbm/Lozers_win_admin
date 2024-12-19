@@ -2,7 +2,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import { Gamepad, PaymentOutlined, Person, Settings } from "@mui/icons-material";
 import GamepadIcon from '@mui/icons-material/Gamepad';
-
+import ScoreboardIcon from '@mui/icons-material/Scoreboard';
 
 export const RouteName = [
     {
@@ -28,7 +28,7 @@ export const RouteName = [
     {
         path: "/admin/points-distribution",
         name: "Point Distribution",
-        icon: <GamepadIcon />,
+        icon: <ScoreboardIcon />,
     },
     {
         name: "Game History",

@@ -27,6 +27,7 @@ export const DELETE_CONTEST = 'DELETE_CONTEST';
 //! points
 export const GET_POINTS = 'GET_POINTS';
 export const SET_POINTS = 'SET_POINTS';
+export const UPDATE_POINTS = 'UPDATE_POINTS';
 
 //! Player
 export const GET_PLAYER = 'GET_PLAYER';

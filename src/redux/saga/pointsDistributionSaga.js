@@ -4,6 +4,8 @@ import { call, put, takeLeading } from 'redux-saga/effects';
 import { postAPI, getAPI, putAPI, deleteAPI } from '../../utils/api-function';
 import { get_contest, create_contest, update_contest, delete_contest, get_points } from '../../utils/api-routes';
 import { Color } from '../../assets/color';
+import { setPoints } from '../actions/pointsAction';
+// import api from '../../utils/api'; 
 
 function* getPoints() {
     try {
@@ -44,23 +46,23 @@ function* getPoints() {
 //     }
 // }
 
-// function* updateContest(action) {
+// function* updatePoints(action) {
 //     try {
 //         const { payload } = action;
-//         console.log('Update Contest Saga Action Payload:', payload);
+//         console.log('Update Points Saga Action Payload:', payload);
 
 //         const { _id, data } = payload;
-//         console.log('Update Contest ID:', _id);
-//         console.log('Update Contest Data:', data);
+//         console.log('Update Points ID:', _id);
+//         console.log('Update Points Data:', data);
 
-//         const { data: response } = yield call(putAPI, `api/admin/edit_contest/${_id}`, data);
-//         console.log('Update Contest API Response:', response);
+//         const { data: response } = yield call(putAPI, `api/admin/update_points`, data);
+//         console.log('Update Points API Response:', response);
 
 //         if (response?.success) {
 //             Swal.fire({
 //                 icon: "success",
 //                 title: 'Success',
-//                 text: "Contest updated successfully",
+//                 text: "Points updated successfully",
 //                 showConfirmButton: false,
 //                 timer: 2000,
 //             });
@@ -77,6 +79,22 @@ function* getPoints() {
 //         });
 //     }
 // }
+
+function* updatePoints(action) {
+    try {
+      const { payload } = action; // Data to update
+      const response = yield call(putAPI, 'api/admin/update_points', payload); // Call backend API
+  
+      if (response?.success) {
+        // Dispatch action to update state with the new data
+        yield put(setPoints(response.points));
+      } else {
+        console.error('Failed to update points:', response.message);
+      }
+    } catch (error) {
+      console.error('Error in updatePointsSaga:', error);
+    }
+  }
 
 
 
@@ -128,7 +146,7 @@ function* getPoints() {
 
 export default function* pointsSaga() {
     yield takeLeading(actionTypes.GET_POINTS, getPoints);
-    // yield takeLeading(actionTypes.CREATE_CONTEST, createContest);
+    yield takeLeading(actionTypes.UPDATE_POINTS, updatePoints);
     // yield takeLeading(actionTypes.UPDATE_CONTEST, updateContest);
     // yield takeLeading(actionTypes.DELETE_CONTEST, deleteContest);
 }

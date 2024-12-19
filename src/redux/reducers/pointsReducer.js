@@ -1,19 +1,23 @@
 import * as actionTypes from '../action-types';
 
 const initialState = {
-    pointsData: [],
+  pointsData: [],
 };
 
 export const pointsReducer = (state = initialState, action) => {
-    const { payload, type } = action;
+  const { payload, type } = action;
 
-    switch (type) {
-        case actionTypes.SET_POINTS:
-            return { ...state, pointsData: payload };
+  switch (type) {
+    case actionTypes.SET_POINTS:
+      return { ...state, pointsData: payload }; // Update the state with fetched points
 
-        default:
-            return state;
-    }
+    case actionTypes.UPDATE_POINTS: // Optional: Can log actions here for debugging
+      console.log("UPDATE_POINTS action triggered with payload:", payload);
+      return state;
+
+    default:
+      return state;
+  }
 };
 
 export default pointsReducer;
