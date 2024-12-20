@@ -14,9 +14,10 @@ function* adminLogin(action) {
         var { payload } = action;
 
         const { data } = yield axios.post(`http://localhost:4012/api/admin/admin_login`, payload?.data);
+        console.log(data.token, '------------------')
 
         if (data) {
-            localStorage.setItem('access_token', data?.token);
+            localStorage.setItem(access_token, data?.token);
 
             Swal.fire({ icon: 'success', text: 'Login Successfully', showConfirmButton: false, timer: 2000 });
             yield call(payload?.onComplete);

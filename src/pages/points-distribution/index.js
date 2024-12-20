@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TextField, Button } from '@mui/material';
+import { Box, Button, IconButton } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import * as PointsActions from '../../redux/actions/pointsAction';
+import MainDatatable from '../../components/datatable/MainDatatable';
+import Header from '../../layouts/header';
 import { toast } from 'react-toastify';
+import * as PointsActions from '../../redux/actions/pointsAction';
 
 const PointsDistribution = () => {
   const dispatch = useDispatch();
@@ -10,12 +12,12 @@ const PointsDistribution = () => {
 
   const staticKeys = {
     'Playing 11': 'playing11',
-    Wicket: 'wicket',
-    Run: 'run',
-    Catch: 'catch',
-    Boundary: 'boundary',
+    'Wicket': 'wicket',
+    'Run': 'run',
+    'Catch': 'catch',
+    'Boundary': 'boundary',
     'Consecutive Boundary': 'consecutiveBoundary',
-    Six: 'six',
+    'Six': 'six',
     'Consecutive Six': 'consecutiveSix',
     'Twenty Run Bonus': 'twentyRunBonus',
     'Thirty Run Bonus': 'thityRunBonus',
@@ -30,14 +32,14 @@ const PointsDistribution = () => {
     'Five Wicket Bonus': 'fiveWicketBonus',
     'Six Wicket Bonus': 'sixWicketBonus',
     'Maiden Over': 'maidenOver',
-    Stumping: 'stumping',
+    'Stumping': 'stumping',
     'Run Out Direct Hit': 'runOutDirectHit',
     'Run Out Not Direct Hit': 'runOutNotDirectHit',
   };
 
   const formats = ['T20', 'T10', 'ODI', 'TEST'];
   const [data, setData] = useState({});
-  const [editedRows, setEditedRows] = useState({}); // Track edit states for each row
+  const [editedRows, setEditedRows] = useState({});
 
   useEffect(() => {
     if (Array.isArray(pointsData) && pointsData.length > 0) {
@@ -51,7 +53,6 @@ const PointsDistribution = () => {
       });
       setData(formattedData);
 
-      // Initialize edit states for each row as false
       const initialEditedRows = {};
       Object.keys(staticKeys).forEach((key) => {
         initialEditedRows[key] = false;
@@ -74,81 +75,95 @@ const PointsDistribution = () => {
     }));
     setEditedRows((prevEditedRows) => ({
       ...prevEditedRows,
-      [type]: true, // Mark this row as edited
+      [type]: true,
     }));
   };
 
   const handleEdit = (type) => {
     const updatedData = {};
 
-    // Prepare data for API call
     formats.forEach((format) => {
       if (!updatedData[format]) updatedData[format] = {};
       const dataKey = staticKeys[type];
       updatedData[format][dataKey] = data[type][format];
     });
 
-    dispatch(PointsActions.updatePoints(updatedData)); // Dispatch updatePoints action
+    dispatch(PointsActions.updatePoints(updatedData));
     toast.success(`${type} points updated successfully`);
     setEditedRows((prevEditedRows) => ({
       ...prevEditedRows,
-      [type]: false, // Reset edit state for this row
+      [type]: false,
     }));
   };
 
-  return (
-    <Box sx={{ p: 3 }}>
-      <div
-        style={{
-          background: "#ffffff",
-          padding: "25px",
-          borderRadius: "10px",
-          boxShadow: "0 3px 6px rgba(0, 0, 0, 0.16), 0 0px 0px rgba(0, 0, 0, 0.23)",
-        }}
-      >
-        <div style={{ fontSize: "20px", fontWeight: "600", color: "black" }}>Point Distribution</div>
+  const columns = [
+    { name: 'Type', selector: (row) => row.type },
+    ...formats.map((format) => ({
+      name: format,
+      selector: (row) => (
+        <input
+          type="text"
+          value={row[format]}
+          onChange={(e) => handleChange(row.type, format, e.target.value)}
+          style={{
+            width: '100%',
+            padding: '5px',
+            fontSize: '14px',
+            color: row[format] < 0 ? 'green' : 'red', // Green for negative, Red for positive
+          }}
+        />
+      ),
+    })),
+    {
+      name: 'Action',
+      cell: (row) => (
+        <Button
+          variant="contained"
+          size="small"
+          onClick={() => handleEdit(row.type)}
+          disabled={!editedRows[row.type]}
+        >
+          Save
+        </Button>
+      ),
+    },
+  ];
+  
 
-        <TableContainer component={Paper} style={{ marginTop: '20px' }}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell><strong>Type</strong></TableCell>
-                {formats.map((format) => (
-                  <TableCell key={format}><strong>{format}</strong></TableCell>
-                ))}
-                <TableCell><strong>Action</strong></TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {Object.keys(staticKeys).map((key) => (
-                <TableRow key={key}>
-                  <TableCell>{key}</TableCell>
-                  {formats.map((format) => (
-                    <TableCell key={`${key}-${format}`}>
-                      <TextField
-                        size="small"
-                        value={data[key]?.[format]}
-                        onChange={(e) => handleChange(key, format, e.target.value)}
-                      />
-                    </TableCell>
-                  ))}
-                  <TableCell>
-                    <Button
-                      variant="contained"
-                      size="small"
-                      onClick={() => handleEdit(key)}
-                      disabled={!editedRows[key]} // Enable button only if this row has been edited
-                    >
-                      Save
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </div>
-    </Box>
+  const tableData = Object.keys(staticKeys).map((key) => ({
+    type: key,
+    ...formats.reduce((acc, format) => {
+      acc[format] = data[key]?.[format] ?? '';
+      return acc;
+    }, {}),
+  }));
+
+  return (
+    <>
+      <Header />
+      <Box sx={{ p: 3 }}>
+        <div
+          style={{
+            background: "#ffffff",
+            padding: "25px",
+            borderRadius: "10px",
+            boxShadow: "0 3px 6px rgba(0, 0, 0, 0.16), 0 0px 0px rgba(0, 0, 0, 0.23)",
+          }}
+        >
+          <div style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginBottom: "20px",
+            backgroundColor: "#fff"
+          }}>
+            <div style={{ fontSize: "20px", fontWeight: "600", color: "black" }}>Point Distributions</div>
+          </div>
+
+          {/* MainDatatable Component */}
+          <MainDatatable columns={columns} data={tableData} />
+        </div>
+      </Box>
+    </>
   );
 };
 

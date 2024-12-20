@@ -18,7 +18,7 @@ const MainDatatable = ({ data, columns }) => {
         },
         rows: {
             style: {
-                minHeight: '60px', backgroundColor: Color.white,
+                minHeight: '60px', backgroundColor: Color.white, 
             },
         },
         headRow: {

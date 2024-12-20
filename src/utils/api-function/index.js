@@ -4,6 +4,7 @@ import { access_token } from "../constant";
 
 export const getAPI = async (url) => {
     const token = localStorage.getItem(access_token);
+    console.log(token, 'jkj')
 
     const response = await axios.get(api_urls + url, { headers: { Authorization: 'Bearer ' + token } })
     return response;
