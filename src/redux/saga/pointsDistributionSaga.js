@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import * as actionTypes from '../action-types';
 import { call, put, takeLeading } from 'redux-saga/effects';
-import { postAPI, getAPI, putAPI, deleteAPI } from '../../utils/api-function';
+import { postAPI, getAPI, putAPI, deleteAPI, patchAPI } from '../../utils/api-function';
 import { get_contest, create_contest, update_contest, delete_contest, get_points } from '../../utils/api-routes';
 import { Color } from '../../assets/color';
 import { setPoints } from '../actions/pointsAction';
@@ -83,7 +83,7 @@ function* getPoints() {
 function* updatePoints(action) {
     try {
       const { payload } = action; // Data to update
-      const response = yield call(putAPI, 'api/admin/update_points', payload); // Call backend API
+      const response = yield call(patchAPI, 'api/admin/update_points', payload); // Call backend API
   
       if (response?.success) {
         // Dispatch action to update state with the new data
