@@ -102,7 +102,7 @@ const PointsDistribution = () => {
       name: format,
       selector: (row) => (
         <input
-          type="text"
+          type="Number"
           value={row[format]}
           onChange={(e) => handleChange(row.type, format, e.target.value)}
           style={{

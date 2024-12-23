@@ -25,6 +25,7 @@ const Contest = () => {
     };
 
     const handleEditContest = (contest) => {
+        
         setContestToEdit(contest); // Set the contest to edit
         setOpenModal(true); // Open the modal
     };
@@ -40,6 +41,8 @@ const Contest = () => {
         { name: 'Prize Pool', selector: row => row?.prizePool },
         { name: 'Entry Fee', selector: row => row?.entryFee },
         { name: 'Max Participants', selector: row => row?.maxParticipants },
+        { name: 'Discount', selector: row => row?.discount },
+        { name: 'Prize', selector: row => row?.prize },
         {
             name: 'Actions',
             cell: (row) => (

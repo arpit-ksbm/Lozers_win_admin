@@ -8,12 +8,17 @@ const AddContestModal = ({ open, onClose, contestToEdit }) => {
     const dispatch = useDispatch();
 
     const [contestData, setContestData] = useState({
-        // matchId: '',
+        matchId: '',
         contestName: '',
         prizePool: '',
         entryFee: '',
         maxParticipants: '',
+        discount: '',
+        prize: ''
     });
+
+    console.log(setContestData, 'setcont');
+    
 
     const [matchList, setMatchList] = useState([]);
 
@@ -22,7 +27,7 @@ const AddContestModal = ({ open, onClose, contestToEdit }) => {
         const fetchMatches = async () => {
             try {
                 const response = await axios.get(
-                    'https://rest.entitysport.com/v2/matches/?status=1&token=cc8b2f3c9eba434f4a524a830e12f8d2'
+                    'https://rest.entitysport.com/v2/matches/?status=2&token=ec471071441bb2ac538a0ff901abd249'
                 );
                 if (response.data && response.data.response && response.data.response.items) {
                     setMatchList(response.data.response.items);
@@ -38,12 +43,15 @@ const AddContestModal = ({ open, onClose, contestToEdit }) => {
     // Update contest data when editing
     useEffect(() => {
         if (contestToEdit) {
+            console.log(contestToEdit,'edit');
             setContestData({
                 matchId: contestToEdit.matchId || '',
                 contestName: contestToEdit.contestName || '',
                 prizePool: contestToEdit.prizePool || '',
                 entryFee: contestToEdit.entryFee || '',
                 maxParticipants: contestToEdit.maxParticipants || '',
+                discount: contestToEdit.discount || '',
+                prize: contestToEdit.prize || ''
             });
         } else {
             setContestData({
@@ -52,6 +60,8 @@ const AddContestModal = ({ open, onClose, contestToEdit }) => {
                 prizePool: '',
                 entryFee: '',
                 maxParticipants: '',
+                discount: '',
+                prize: ''
             });
         }
     }, [contestToEdit]);
@@ -150,6 +160,24 @@ const AddContestModal = ({ open, onClose, contestToEdit }) => {
                     fullWidth
                     name="maxParticipants"
                     value={contestData.maxParticipants}
+                    onChange={handleInputChange}
+                    style={{ marginBottom: '10px' }}
+                />
+                <TextField
+                    label="Discount"
+                    variant="outlined"
+                    fullWidth
+                    name="discount"
+                    value={contestData.discount}
+                    onChange={handleInputChange}
+                    style={{ marginBottom: '10px' }}
+                />
+                <TextField
+                    label="Prize"
+                    variant="outlined"
+                    fullWidth
+                    name="prize"
+                    value={contestData.prize}
                     onChange={handleInputChange}
                     style={{ marginBottom: '10px' }}
                 />
